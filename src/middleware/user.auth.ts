@@ -10,11 +10,11 @@ if (!JWT_SECRET) {
 }
 
 declare global {
-	namespace Express {
-		interface Request {
-			userEmail?: string;
-		}
-	}
+  namespace Express {
+    interface Request {
+      email?: string;
+    }
+  }
 }
 
 export async function userAuthMiddleware(
@@ -35,22 +35,22 @@ export async function userAuthMiddleware(
     });
   } else {
     const token = authHeader.split(" ")[1];
-		if(!token) {
-			return res.status(401).json({
-				status: {
-					code: 401,
-					message: "Authorization token is not of kind Bearer or is missing",
-				},
-				message: {
-					error: "Unauthorized",
-				},
-			});
-		}
+    if (!token) {
+      return res.status(401).json({
+        status: {
+          code: 401,
+          message: "Authorization token is not of kind Bearer or is missing",
+        },
+        message: {
+          error: "Unauthorized",
+        },
+      });
+    }
     try {
       const decodedToken = jwt.verify(token, JWT_SECRET!) as {
-        userEmail: string;
+        email: string;
       };
-      req.userEmail = decodedToken.userEmail;
+      req.email = decodedToken.email;
       next();
     } catch (error) {
       return res.status(401).json({

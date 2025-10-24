@@ -2,11 +2,11 @@
   "name": "inkwellbackend",
   "version": "1.0.0",
   "description": "backend architecture for inkwell",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon dist/index.js"
+    "dev": "nodemon dist/server.js"
   },
   "author": "ayushkumar320 mobi2400",
   "license": "ISC",
