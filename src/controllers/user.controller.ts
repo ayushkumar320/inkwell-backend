@@ -1,8 +1,8 @@
-import prisma from "../db/connectDB.js";
-import type {Request, Response} from "express";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
+import prisma from '../db/connectDB.js';
+import type {Request, Response} from 'express';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
@@ -18,10 +18,10 @@ export async function registerUser(req: Request, res: Response) {
       return res.status(400).json({
         status: {
           code: 400,
-          message: "User already exists",
+          message: 'User already exists',
         },
         data: {
-          error: "Email is already registered please login",
+          error: 'Email is already registered please login',
         },
       });
     } else {
@@ -38,11 +38,11 @@ export async function registerUser(req: Request, res: Response) {
       return res.status(200).json({
         status: {
           code: 200,
-          message: "User registered successfully",
+          message: 'User registered successfully',
         },
         data: {
           user: newUser,
-          message: "You can now login with your credentials",
+          message: 'You can now login with your credentials',
         },
       });
     }
@@ -50,10 +50,10 @@ export async function registerUser(req: Request, res: Response) {
     return res.status(500).json({
       status: {
         code: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
       },
       data: {
-        error: "An error occurred while registering the user",
+        error: 'An error occurred while registering the user',
       },
     });
   }
@@ -71,10 +71,10 @@ export async function loginUser(req: Request, res: Response) {
       return res.status(400).json({
         status: {
           code: 400,
-          message: "Invalid email or password",
+          message: 'Invalid email or password',
         },
         data: {
-          error: "User not found",
+          error: 'User not found',
         },
       });
     }
@@ -83,10 +83,10 @@ export async function loginUser(req: Request, res: Response) {
       return res.status(400).json({
         status: {
           code: 400,
-          message: "Invalid email or password",
+          message: 'Invalid email or password',
         },
         data: {
-          error: "Incorrect email or password",
+          error: 'Incorrect email or password',
         },
       });
     }
@@ -94,7 +94,7 @@ export async function loginUser(req: Request, res: Response) {
     return res.status(200).json({
       status: {
         code: 200,
-        message: "Login successful",
+        message: 'Login successful',
       },
       data: {
         user: {
@@ -110,10 +110,10 @@ export async function loginUser(req: Request, res: Response) {
     return res.status(500).json({
       status: {
         code: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
       },
       data: {
-        error: "An error occurred while logging in",
+        error: 'An error occurred while logging in',
       },
     });
   }
@@ -139,8 +139,8 @@ export async function updateUserProfile(
 
     if (!user) {
       return res.status(404).json({
-        status: {code: 404, message: "User not found"},
-        data: {error: "User not found"},
+        status: {code: 404, message: 'User not found'},
+        data: {error: 'User not found'},
       });
     }
 
@@ -152,8 +152,8 @@ export async function updateUserProfile(
       const isMatch = await bcrypt.compare(oldPassword, user.password);
       if (!isMatch) {
         return res.status(400).json({
-          status: {code: 400, message: "Old password is incorrect"},
-          data: {error: "Incorrect old password"},
+          status: {code: 400, message: 'Old password is incorrect'},
+          data: {error: 'Incorrect old password'},
         });
       }
 
@@ -168,13 +168,13 @@ export async function updateUserProfile(
     });
 
     return res.status(200).json({
-      status: {code: 200, message: "Profile updated successfully"},
+      status: {code: 200, message: 'Profile updated successfully'},
       data: {user: updatedUser},
     });
   } catch (error) {
     return res.status(500).json({
-      status: {code: 500, message: "Internal Server Error"},
-      data: {error: "An error occurred while updating the profile"},
+      status: {code: 500, message: 'Internal Server Error'},
+      data: {error: 'An error occurred while updating the profile'},
     });
   }
 }

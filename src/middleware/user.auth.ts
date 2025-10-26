@@ -1,12 +1,12 @@
-import jwt from "jsonwebtoken";
-import type {Request, Response, NextFunction} from "express";
-import dotenv from "dotenv";
+import jwt from 'jsonwebtoken';
+import type {Request, Response, NextFunction} from 'express';
+import dotenv from 'dotenv';
 dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
 if (!JWT_SECRET) {
-  throw new Error("JWT_SECRET is not defined in environment variables");
+  throw new Error('JWT_SECRET is not defined in environment variables');
 }
 
 declare global {
@@ -23,26 +23,26 @@ export async function userAuthMiddleware(
   next: NextFunction
 ) {
   const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(401).json({
       status: {
         code: 401,
-        message: "Authorization token is not of kind Bearer or is missing",
+        message: 'Authorization token is not of kind Bearer or is missing',
       },
       message: {
-        error: "Unauthorized",
+        error: 'Unauthorized',
       },
     });
   } else {
-    const token = authHeader.split(" ")[1];
+    const token = authHeader.split(' ')[1];
     if (!token) {
       return res.status(401).json({
         status: {
           code: 401,
-          message: "Authorization token is not of kind Bearer or is missing",
+          message: 'Authorization token is not of kind Bearer or is missing',
         },
         message: {
-          error: "Unauthorized",
+          error: 'Unauthorized',
         },
       });
     }
@@ -56,10 +56,10 @@ export async function userAuthMiddleware(
       return res.status(401).json({
         status: {
           code: 401,
-          message: "Invalid token",
+          message: 'Invalid token',
         },
         message: {
-          error: "Unauthorized",
+          error: 'Unauthorized',
         },
       });
     }
